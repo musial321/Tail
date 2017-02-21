@@ -6,9 +6,12 @@ public class Tail
 	static BufferedReader input2=null;
 	static BufferedReader input3=null;
 	static File inputFile;
+	// True if -f flag was included
 	static boolean follow = false;
+	// By default prints last 10 lines
 	static int n = 10;
 	
+	// Parses arguments given to tail
 	public static boolean parseArgs(String [] args) {
 		int i = 0;
 		boolean validArgs = true;
@@ -147,10 +150,11 @@ public class Tail
 
 					
 					
-					while(true) //Continuously updates file
+					while(true) // Continuously updates file
 					{
 						newSize=inputFile.length();
 						
+						// If something has not been added to the file
 						if(newSize<oldSize) {
 							input2 = new BufferedReader(new FileReader(inputFile));
 							int count = 0;
@@ -178,6 +182,7 @@ public class Tail
 							oldSize=inputFile.length();
 							inputTxt=getNewText(inputFile);	
 						}
+						// If something new has been added to the file, update it
 						if(newSize>oldSize)
 						{
 							input2 = new BufferedReader(new FileReader(inputFile));
@@ -234,6 +239,7 @@ public class Tail
 			}
 			finally
 			{
+				// Closes all our inputs if they are open
 				if(input!=null) {
 					input.close();
 				}
